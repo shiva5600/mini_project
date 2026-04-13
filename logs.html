@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Logs - LogSense AI</title>
+<style>
+body {margin:0;background:#020617;color:white;font-family:Segoe UI;}
+.sidebar {width:220px;height:100vh;background:#020617;position:fixed;padding:20px;}
+.main {margin-left:240px;padding:20px;}
+a {display:block;color:#94a3b8;padding:10px;text-decoration:none;}
+a:hover {color:#22c55e;}
+.table {background:#111;padding:20px;border-radius:10px;}
+.error{color:red;} .warning{color:orange;}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<h2 style="color:#22c55e;">⚡ LogSense</h2>
+<a href="dashboard.html">Dashboard</a>
+<a href="logs.html">Logs</a>
+<a href="alerts.html">Alerts</a>
+<a href="settings.html">Settings</a>
+</div>
+
+<div class="main">
+<h2>📋 Logs</h2>
+
+<div class="table">
+<table width="100%">
+<tr><th>Time</th><th>Server</th><th>Status</th></tr>
+<tr><td>10:00</td><td>S1</td><td>OK</td></tr>
+<tr><td>10:10</td><td>S2</td><td class="error">ERROR</td></tr>
+<tr><td>10:20</td><td>S3</td><td class="warning">WARNING</td></tr>
+</table>
+</div>
+
+</div>
+
+<script>
+if(!localStorage.getItem("loggedInUser")){
+    window.location.href="index.html";
+}
+</script>
+
+</body>
+</html>

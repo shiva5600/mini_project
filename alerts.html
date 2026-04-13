@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Alerts - LogSense AI</title>
+<style>
+body {margin:0;background:#020617;color:white;font-family:Segoe UI;}
+.sidebar {width:220px;height:100vh;background:#020617;position:fixed;padding:20px;}
+.main {margin-left:240px;padding:20px;}
+.alert {background:#111;padding:15px;margin:10px 0;border-left:5px solid red;}
+a {display:block;color:#94a3b8;padding:10px;text-decoration:none;}
+a:hover {color:#22c55e;}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<h2 style="color:#22c55e;">⚡ LogSense</h2>
+<a href="dashboard.html">Dashboard</a>
+<a href="logs.html">Logs</a>
+<a href="alerts.html">Alerts</a>
+<a href="settings.html">Settings</a>
+</div>
+
+<div class="main">
+<h2>🚨 Alerts</h2>
+
+<div class="alert">High CPU usage detected</div>
+<div class="alert">Unauthorized login attempt</div>
+<div class="alert">Server down</div>
+
+</div>
+
+<script>
+if(!localStorage.getItem("loggedInUser")){
+    window.location.href="index.html";
+}
+</script>
+
+</body>
+</html>

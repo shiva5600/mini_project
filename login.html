@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LogSense AI - Login</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #020617, #1e3a8a);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(2,6,23,0.8);
+    backdrop-filter: blur(10px);
+    color: white;
+}
+
+.logo {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+/* Center Box */
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login Card */
+.login-box {
+    width: 350px;
+    padding: 40px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 20px rgba(34,197,94,0.2);
+    text-align: center;
+    color: white;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+.input-box {
+    margin: 20px 0;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #0f172a;
+    color: white;
+    outline: none;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Message */
+#error {
+    margin-top: 10px;
+    color: #ef4444;
+}
+
+.signup-link {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.signup-link a {
+    color: #22c55e;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">⚡ LogSense AI</div>
+    <div>Monitoring Portal</div>
+</div>
+
+<!-- Login -->
+<div class="container">
+    <div class="login-box">
+        <h2>Login</h2>
+
+        <div class="input-box">
+            <input type="text" id="username" placeholder="Username">
+        </div>
+
+        <div class="input-box">
+            <input type="password" id="password" placeholder="Password">
+        </div>
+
+        <button onclick="login()">Login</button>
+
+        <p id="error"></p>
+
+        <div class="signup-link">
+            Don't have an account? <a onclick="signup()">Create one</a>
+        </div>
+    </div>
+</div>
+
+<script>
+// Signup (quick demo)
+function signup(){
+    let u = prompt("Enter username:");
+    let p = prompt("Enter password:");
+
+    if(!u || !p){
+        alert("Invalid input");
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if(users.find(x => x.username === u)){
+        alert("User already exists!");
+        return;
+    }
+
+    users.push({username:u, password:p});
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Signup successful!");
+}
+
+// Login
+function login(){
+    let u = document.getElementById("username").value;
+    let p = document.getElementById("password").value;
+
+    if(!u || !p){
+        document.getElementById("error").innerText = "Enter all fields";
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let found = users.find(x => x.username === u && x.password === p);
+
+    if(found){
+        localStorage.setItem("loggedInUser", u);
+        window.location.href = "dashboard.html";
+    } else {
+        document.getElementById("error").innerText = "Invalid credentials";
+    }
+}
+</script>
+
+</body>
+</html>

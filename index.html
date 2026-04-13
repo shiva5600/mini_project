@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LogSense AI - Login</title>
+<style>
+body {margin:0;font-family:'Segoe UI';background:#020617;color:white;}
+.navbar {padding:15px 40px;background:rgba(2,6,23,0.8);display:flex;justify-content:space-between;}
+.logo {color:#22c55e;font-weight:bold;}
+.auth {height:90vh;display:flex;justify-content:center;align-items:center;}
+.container {width:350px;position:relative;}
+.form-box {position:absolute;width:100%;padding:40px;background:rgba(255,255,255,0.05);border-radius:15px;transition:0.5s;}
+.signup {transform:rotateY(180deg);opacity:0;}
+.container.active .login {transform:rotateY(180deg);opacity:0;}
+.container.active .signup {transform:rotateY(0);opacity:1;}
+.input-box {margin:20px 0;}
+input {width:100%;padding:10px;background:transparent;border:none;border-bottom:2px solid #475569;color:white;}
+button {width:100%;padding:10px;background:#22c55e;border:none;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+<div class="logo">⚡ LogSense AI</div>
+</div>
+
+<div class="auth">
+<div class="container">
+
+<div class="form-box login">
+<h2>Login</h2>
+<div class="input-box"><input id="luser" placeholder="Username"></div>
+<div class="input-box"><input type="password" id="lpass" placeholder="Password"></div>
+<button onclick="login()">Login</button>
+<p onclick="toggle()">Create Account</p>
+</div>
+
+<div class="form-box signup">
+<h2>Signup</h2>
+<div class="input-box"><input id="suser" placeholder="Username"></div>
+<div class="input-box"><input type="password" id="spass" placeholder="Password"></div>
+<button onclick="signup()">Signup</button>
+<p onclick="toggle()">Back to Login</p>
+</div>
+
+</div>
+</div>
+
+<script>
+function toggle(){document.querySelector(".container").classList.toggle("active");}
+
+function signup(){
+    let u = document.getElementById("suser").value;
+    let p = document.getElementById("spass").value;
+
+    if(!u || !p){
+        alert("Please fill all fields");
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if(users.find(x => x.username === u)){
+        alert("User already exists!");
+        return;
+    }
+
+    users.push({username:u, password:p});
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Signup successful!");
+    toggle();
+}
+
+function login(){
+    let u = document.getElementById("luser").value;
+    let p = document.getElementById("lpass").value;
+
+    if(!u || !p){
+        alert("Enter username & password");
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let found = users.find(x => x.username === u && x.password === p);
+
+    if(found){
+        localStorage.setItem("loggedInUser", u);
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Invalid login");
+    }
+}
+</script>
+
+</body>
+</html>
